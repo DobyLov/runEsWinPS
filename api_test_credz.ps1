@@ -37,7 +37,7 @@ function global:Credz_Constructor(){
     If ($null -ne $EsUser) {$EsUser = 'elastic'}
         $global:promptPassword = Read-Host 'Enter elasticsearch password ?' -AsSecureString
     If ($promptPassword.Length -eq 0) {
-        $promptPassword = ConvertTo-SecureString "lasouris" -AsPlainText -Force
+        #$promptPassword = ConvertTo-SecureString "" -AsPlainText -Force
     }
     $global:Credz = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($EsUser+":"+(PasswordDecoder($promptPassword))))
 }
@@ -110,8 +110,8 @@ function run_kibana(){
 
 
 # Run script
-#Nodes_Conf_Loader
-#Start_Number_Of_Nodes
+Nodes_Conf_Loader
+Start_Number_Of_Nodes
 check_kibana_api
 
 
