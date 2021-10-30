@@ -1,0 +1,15 @@
+{"nodes":[
+	{"node_name":"node1",
+		"adress_ip":"192.168.1.150",
+		"instance_path":"C:\\estack\\elasticsearch_nodes\\node1\\bin"
+	},
+	{"node_name":"node2",
+	"adress_ip":"192.168.1.151",
+	"instance_path":"C:\\estack\\elasticsearch_nodes\\node2\\bin"
+	},
+	{"node_name":"node3",
+	"adress_ip":"192.168.1.152",
+	"instance_path":"C:\\estack\\elasticsearch_nodes\\node3\\bin"
+	}
+	]
+}
