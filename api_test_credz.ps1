@@ -1,6 +1,7 @@
 ﻿$global:EsPort ="9200"
 $KiPort ="5601"
 $global:KibanaUrl ="http://localhost:$KiPort"
+$global:KibanaFilePath ='C:\estack\kibana\bin\kibana.bat'
 
 function Nodes_Conf_Loader(){
     $global:nodes_json = Get-Content '.\nodes.json' | ConvertFrom-Json
@@ -84,8 +85,17 @@ function EsNodeLuncher{
     )
     Write-host "Run node:"
     Write-host  $Instance_Path"\elasticsearch.bat"
-    $Complete_Path = "cmd /c start powershell -noexit -Command `"$Instance_Path\elasticsearch.bat`""
-    invoke-expression $Complete_Path
+    
+    if ( (Test-Path -Path $Instance_Path"\elasticsearch.bat" -PathType Leaf) ) {
+        try{
+            $Complete_Path = "cmd /c start powershell -noexit -Command `"$Instance_Path\elasticsearch.bat`""
+            invoke-expression $Complete_Path
+        } catch {
+            Write-Host "Not able to exec "$Complete_Path
+        }
+    } else {
+        Write-Host $Instance_Path" Not found"
+    }
 }
 
 
@@ -104,8 +114,17 @@ function check_kibana_api(){
 }
 
 function run_kibana(){
-    $Complete_Path = "cmd /c start powershell -noexit -Command `"C:\estack\kibana\bin\kibana.bat`""
-    invoke-expression $Complete_Path
+    if( (Test-Path -Path $KibanaFilePath -PathType Leaf) ){
+        try{
+            $Complete_Path = "cmd /c start powershell -noexit -Command $KibanaFilePath"
+            invoke-expression $Complete_Path
+        } catch {
+            Write-Host "Unable to exec "$Complete_Path
+        }
+    } else {
+        Write-Host $KibanaFilePa" not found"
+    }
+    
 }
 
 
@@ -119,7 +138,7 @@ function open_WebBrowser(){
         Write-host "unable to open url:" $UrlToOpen
     }
 }
-
+s
 # Run script
 Nodes_Conf_Loader
 Start_Number_Of_Nodes
