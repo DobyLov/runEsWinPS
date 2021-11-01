@@ -116,7 +116,6 @@ function check_kibana_api(){
 function run_kibana(){
     if( (Test-Path -Path $KibanaFilePath -PathType Leaf) ){
         try{
-            #$Complete_Path = "cmd /c start powershell -noexit -Command `"C:\estack\kibana\bin\kibana.bat`""
             $Complete_Path = "cmd /c start powershell -noexit -Command $KibanaFilePath"
             invoke-expression $Complete_Path
         } catch {
