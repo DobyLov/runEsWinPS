@@ -139,10 +139,10 @@ function open_WebBrowser(){
         Write-host "unable to open url:" $UrlToOpen
     }
 }
-
+s
 # Run script
 Nodes_Conf_Loader
-#Start_Number_Of_Nodes
+Start_Number_Of_Nodes
 check_kibana_api
 open_WebBrowser $KibanaUrl
 
