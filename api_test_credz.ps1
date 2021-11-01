@@ -1,6 +1,6 @@
 ﻿$global:EsPort ="9200"
 $KiPort ="5601"
-$global:KibUrl ="http://localhost:$KiPort/status"
+$global:KibanaUrl ="http://localhost:$KiPort"
 
 function Nodes_Conf_Loader(){
     $global:nodes_json = Get-Content '.\nodes.json' | ConvertFrom-Json
@@ -92,7 +92,7 @@ function EsNodeLuncher{
 function check_kibana_api(){
     try{
         Write-Host "Check kibana is up"
-        $RespKib = Invoke-WebRequest -Uri $KibUrl -UseBasicParsing
+        $RespKib = Invoke-WebRequest -Uri $KibanaUrl"/status" -UseBasicParsing
         if ($RespKib -eq 200){
             write-host $RespKib.statuscode
         }
@@ -109,10 +109,22 @@ function run_kibana(){
 }
 
 
+function open_WebBrowser(){
+    param (
+        [string]$UrlToOpen
+    )
+    try{
+        [system.Diagnostics.Process]::Start("msedge",$UrlToOpen)
+    }catch {
+        Write-host "unable to open url:" $UrlToOpen
+    }
+}
+
 # Run script
 Nodes_Conf_Loader
 Start_Number_Of_Nodes
 check_kibana_api
+open_WebBrowser $KibanaUrl
 
 
 
